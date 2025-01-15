@@ -300,7 +300,7 @@ using namespace std;
 // {
 //   int left = 0;
 //   int right = arr.size() - 1;
-  
+
 //   while (left <= right)
 //   {
 //     int middle = (left + right) / 2;
@@ -319,22 +319,71 @@ using namespace std;
 //   }
 //   return -1;
 // }
-int binarySearchRecursive(vector<int> &arr, int st, int end, int target){
-  if(st<=end){
-    int mid = (st+end)/2;
-    if(arr[mid] == target){
+int binarySearchRecursive(vector<int> &arr, int st, int end, int target)
+{
+  if (st <= end)
+  {
+    int mid = (st + end) / 2;
+    if (arr[mid] == target)
+    {
       return arr[mid];
     }
-    else if(arr[mid] > target){
-      end = mid -1;
+    else if (arr[mid] > target)
+    {
+      end = mid - 1;
       return binarySearchRecursive(arr, st, end, target);
-      }
-      else{
-        st = mid+1;
-        return binarySearchRecursive(arr, st, end, target);
-      }
+    }
+    else
+    {
+      st = mid + 1;
+      return binarySearchRecursive(arr, st, end, target);
+    }
   }
 }
+
+
+vector<int> Selection_Sort(vector<int> &arr)
+{
+  int n = arr.size() - 1;
+
+  for (int i = 0; i < n; i++)
+  {
+    int minIndex = i;
+    for (int j = i + 1; j <= n; j++)
+    {
+      if (arr[j] < arr[minIndex])
+      {
+        minIndex = j;
+      }
+    }
+    if (minIndex != i)
+    {
+      int temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+    }
+  }
+  return arr;
+}
+
+
+vector<int> Bubble_Sort(vector<int> &arr)
+{
+  int n = arr.size() - 1;
+
+  for (int i = 0; i < n; i++)
+  {
+    for (int j = 0; j < n; j++)
+    {
+      if (arr[j] > arr[j+1])
+      {
+        swap(arr[j], arr[j+1]);
+      }
+    }
+  }
+  return arr;
+}
+
 int main()
 {
   // int x = 4;
@@ -388,12 +437,16 @@ int main()
   //   string s = "abcabcbb";
   //     cout << "Result: "
   //          << lengthOfLongestSubstring(s) << endl;
-  vector<int> arr = {2, 3, 4, 10, 40, 50, 60, 70};
+  vector<int> arr = {2, 3, 4, 10, 40, 50, 60, 70, 9, 3, 12, 15};
   int target = 2;
   // int iterative_result = binarySearch(arr, target);
-   int iterative_result = binarySearchRecursive(arr,0, arr.size() -1, target);
+  //  int iterative_result = binarySearchRecursive(arr,0, arr.size() -1, target);
+  vector<int> sorted_arr = Bubble_Sort(arr);
+  for (const auto &num : sorted_arr)
+  {
+    cout << num << " ";
+  }
 
-
-  cout << "Iterative Binary Search result: " << iterative_result << endl;
+  // cout << "Iterative Binary Search result: " << iterative_result << endl;
   return 0;
 }
